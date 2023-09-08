@@ -8,6 +8,7 @@ import org.openqa.selenium.devtools.v85.network.model.Headers;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pickleib.utilities.PropertyLoader;
+import pickleib.web.utilities.PickleibLogUtils;
 import utils.Printer;
 import utils.PropertiesReader;
 import utils.PropertyUtility;
@@ -34,6 +35,7 @@ public class PickleibWebDriver {
 	static PropertiesReader reader = new PropertiesReader("properties-from-pom.properties");
 	static StringUtilities strUtils = new StringUtilities();
 	public static Printer log = new Printer(PickleibWebDriver.class);
+	public static PickleibLogUtils pickleibLogUtils = new PickleibLogUtils();
 
 	/**
 	 * Initializes a specified type of driver
@@ -43,6 +45,7 @@ public class PickleibWebDriver {
 	public static void initialize(WebDriverFactory.BrowserType browserType){
 		log.info("Initializing " + strUtils.markup(StringUtilities.Color.PURPLE, browserType.getDriverName()) + " driver...");
 		driver = WebDriverFactory.getDriver(browserType);
+		pickleibLogUtils.start();
 		wait = new WebDriverWait(driver, Duration.of(WebDriverFactory.driverTimeout, ChronoUnit.SECONDS));
 	}
 

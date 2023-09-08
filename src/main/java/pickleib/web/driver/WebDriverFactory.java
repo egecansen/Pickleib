@@ -11,6 +11,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import pickleib.driver.DriverFactory;
 import pickleib.exceptions.PickleibException;
+import pickleib.web.utilities.PickleibLogUtils;
 import utils.LogUtilities;
 import utils.Printer;
 import utils.PropertyUtility;
@@ -18,8 +19,6 @@ import utils.StringUtilities;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.Properties;
-
 import static utils.StringUtilities.Color.*;
 
 @SuppressWarnings("unused")
