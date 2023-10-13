@@ -539,12 +539,20 @@ public abstract class Utilities {
         }
     }
 
-    /**
-     * Waits actively for the page to load up to 10 seconds
-     */
     protected void waitUntilLoads(int waitingTime) {
         long startTime = System.currentTimeMillis();
         String url = driver.getCurrentUrl();
+        log.info("Waiting for the page to start loading -> " + strUtils.markup(BLUE, url));
+
+        ExpectedCondition<Boolean> pageStartsLoadingCondition = driverLoad ->
+        {
+            assert driverLoad != null;
+            return !((JavascriptExecutor) driverLoad).executeScript("return document.readyState").equals("loading");
+        };
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitingTime));
+        wait.until(pageStartsLoadingCondition);
+
         log.info("Waiting for page to be loaded -> " + strUtils.markup(BLUE, url));
 
         ExpectedCondition<Boolean> pageLoadCondition = driverLoad ->
@@ -553,8 +561,8 @@ public abstract class Utilities {
             return ((JavascriptExecutor) driverLoad).executeScript("return document.readyState").equals("complete");
         };
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitingTime));
         wait.until(pageLoadCondition);
+
         long elapsedTime = System.currentTimeMillis() - startTime;
         int elapsedTimeSeconds = (int) ((double) elapsedTime / 1000);
         log.info("The page is loaded in " + elapsedTimeSeconds + " second(s)");
