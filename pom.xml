@@ -6,7 +6,7 @@
 
   <groupId>io.github.umutayb</groupId>
   <artifactId>pickleib</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Pickleib</name>
   <description>Pickleib helps automate tests for WebUI, MobileUI, Desktop UI, API, Email, DataBase, Localisation and more!</description>
@@ -322,7 +322,7 @@
                 <arg>--pinentry-mode</arg>
                 <arg>loopback</arg>
               </gpgArguments>
-              <skip>false</skip> <!--set true for local deployments, always set false before pushing-->
+              <skip>true</skip> <!--set true for local deployments, always set false before pushing-->
             </configuration>
           </execution>
         </executions>

@@ -4,16 +4,27 @@ import collections.Pair;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import pickleib.mobile.driver.PickleibAppiumDriver;
+import pickleib.utilities.PropertyLoader;
 import pickleib.web.driver.PickleibWebDriver;
+import pickleib.web.driver.WebDriverFactory;
 
 public class DriverLoader {
+
+    public DriverLoader() {
+        PropertyLoader.load();
+    }
     
     public RemoteWebDriver loadWebDriver(){
         PickleibWebDriver.initialize();
         return PickleibWebDriver.get();
     }
+
+    public RemoteWebDriver loadWebDriver(WebDriverFactory.BrowserType browserType){
+        PickleibWebDriver.initialize(browserType);
+        return PickleibWebDriver.get();
+    }
     
-    public AppiumDriver loadMobileDriver(){
+    public AppiumDriver loadPlatformDriver(){
         PickleibAppiumDriver.initialize();
         return PickleibAppiumDriver.get();
     }

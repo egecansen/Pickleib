@@ -17,18 +17,16 @@ import java.net.ServerSocket;
 @SuppressWarnings("unused")
 public abstract class PickleibAppiumDriver {
 
-	public static ScreenCaptureUtility capture = new ScreenCaptureUtility();
-
-	static {PropertyLoader.load();}
 
 	private static AppiumDriver driver;
-	private static AppiumFluentWait<RemoteWebDriver> wait;
-
 	public static AppiumDriver get(){
 		return driver;
 	}
-	private static final PropertiesReader reader = new PropertiesReader("properties-from-pom.properties");
+	private static AppiumFluentWait<RemoteWebDriver> wait;
+	public static ScreenCaptureUtility capture = new ScreenCaptureUtility();
 	private static final Printer log = new Printer(PickleibAppiumDriver.class);
+	private static final PropertiesReader reader = new PropertiesReader("properties-from-pom.properties");
+
 
 	public static void startService(){
 		new Printer(PickleibAppiumDriver.class).info("Initializing appium service");

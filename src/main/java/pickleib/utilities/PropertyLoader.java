@@ -2,19 +2,21 @@ package pickleib.utilities;
 
 import context.ContextStore;
 import properties.PropertyUtilities;
+import utils.Printer;
+import utils.reflection.ReflectionUtilities;
+
 import java.util.Properties;
 
 public class PropertyLoader {
-    public static boolean loaded;
-
-    static {load();}
 
     public static void load(){
-        if (!loaded){
-            Properties properties = PropertyUtilities.getProperties();
-            Properties pickleibProperties = PropertyUtilities.loadPropertyFile("pickleib.properties");
-            ContextStore.merge(pickleibProperties);
+        Properties pickleibProperties = PropertyUtilities.loadPropertyFile("pickleib.properties");
+        boolean loaded = ContextStore.items().containsAll(pickleibProperties.keySet());
 
+        if (!loaded){
+            new Printer(PropertyLoader.class).important(".properties loaded by " + ReflectionUtilities.getPreviousMethodName());
+            Properties properties = PropertyUtilities.getProperties();
+            ContextStore.merge(pickleibProperties);
             if (!properties.isEmpty()){
                 for (Object key:pickleibProperties.keySet())
                     properties.putIfAbsent(key, pickleibProperties.get(key));
@@ -23,6 +25,5 @@ public class PropertyLoader {
 
             PropertyUtilities.properties.putAll(properties);
         }
-        loaded = true;
     }
 }
